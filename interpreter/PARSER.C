@@ -43,10 +43,10 @@ QUEUE Queue1;
 STACK Stack2;
 CMD *Proga;
 TOK TokCurrent;
-INT IsEOTL;
+int IsEOTL;
 
 /* Start of 'DropOperators' function */
-static VOID DropOpers( OPER *Op )
+static void DropOpers( OPER *Op )
 {
   while (Stack2.Top != NULL && 
         ((Stack2.Top->T.OperTable->Assoc == OP_ASSOC_L && Stack2.Top->T.OperTable->Prior >= Op->Prior) ||
@@ -61,11 +61,11 @@ static VOID DropOpers( OPER *Op )
 } /* End of 'DropOperators' function */
 
 /* Start of 'ParserExpr' function */
-VOID ParserExpr( LIST **Expr )
+void ParserExpr( LIST **Expr )
 {
   OPER O;
-  INT brk = 0;
-  INT func = 0;
+  int brk = 0;
+  int func = 0;
   enum
   {
     STATE_PREFIX, STATE_SUFFIX, STATE_DONE, STATE_END
@@ -136,7 +136,7 @@ VOID ParserExpr( LIST **Expr )
 } /* End of 'ParserExpr' function */
 
 /* Start of 'CmdInit' function */
-VOID CmdInit( CMD **C )
+void CmdInit( CMD **C )
 {
   if ((*C = malloc(sizeof(CMD))) == NULL)
     Error("No memory");
@@ -146,7 +146,7 @@ VOID CmdInit( CMD **C )
 } /* End of 'CmdInit' function */
 
 /* Start of 'ParseCmd' function */
-VOID ParseCmd( CMD **C )
+void ParseCmd( CMD **C )
 {
   *C = NULL;
   if (IsTokKw(IF))
@@ -207,7 +207,7 @@ VOID ParseCmd( CMD **C )
 } /* End of 'ParseCmd' function */
 
 /* Start of 'ParseProgram' function */
-VOID ParseProgram( VOID )
+void ParseProgram( void )
 {
   CMD **cmd = &Proga;
  

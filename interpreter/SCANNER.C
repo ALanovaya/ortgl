@@ -40,9 +40,9 @@ KWRD Kws[] =
 };
 
 /* Start of 'UpdateTokToOper' function */
-static VOID UpdateTokToOper( TOK *T )
+static void UpdateTokToOper( TOK *T )
 {
-  INT i;
+  int i;
 
   for (i = 0; i < 18; i++)
     if (!strcmp(T->Name, OperTable[i].Name))
@@ -62,9 +62,9 @@ static VOID UpdateTokToOper( TOK *T )
 } /* End of 'UpdateTokToOper' function */
 
 /* Start of 'UpdateTokToFunc' function */
-static VOID UpdateTokToFunc( TOK *T )
+static void UpdateTokToFunc( TOK *T )
 {
-  INT i;
+  int i;
 
   for (i = 21; i < sizeof(OperTable) / sizeof(OperTable[0]); i++)
     if (!strcmp(T->Name, OperTable[i].Name))
@@ -77,9 +77,9 @@ static VOID UpdateTokToFunc( TOK *T )
 } /* End of 'UpdateTokToFunc' function */
 
 /* Start of 'UpdateTokToKeyword' function */
-static VOID UpdateTokToKeyword( TOK *T )
+static void UpdateTokToKeyword( TOK *T )
 {
-  INT i;
+  int i;
 
   for (i = 0; i < sizeof(Kws) / sizeof(Kws[0]); i++)
     if (strcmp(Kws[i].Name, T->Name) == 0)
@@ -91,10 +91,10 @@ static VOID UpdateTokToKeyword( TOK *T )
 } /* End of 'UpdateTokToKeyword' function */
 
 /* Start of 'Scanner' function */
-VOID Scanner( CHAR *S )
+void Scanner( char *S )
 {
   TOK T = {0};
-  INT i;
+  int i;
 
   while (*S != 0)
   {
@@ -149,18 +149,18 @@ VOID Scanner( CHAR *S )
       T.Id = TOK_NUM;
       T.Num = 0;
 
-      while (isdigit((UCHAR)*S)) 
+      while (isdigit((unsigned char)*S)) 
         T.Num = T.Num * 10 + *S++ - '0';
       if (*S == '.') 
       {
-        DBL denum = 1;
+        double denum = 1;
         S++;
-        while (isdigit((UCHAR)*S))
+        while (isdigit((unsigned char)*S))
           T.Num += (*S++ - '0') / (denum *= 10);
       }
       break;
     default:  
-      if (isalpha((UCHAR)*S))
+      if (isalpha((unsigned char)*S))
       {
         T.Id = TOK_NAME;
         i = 0;
@@ -169,7 +169,7 @@ VOID Scanner( CHAR *S )
           if (i < MAX_NAME - 1)
             T.Name[i++] = *S;
           S++;
-        } while (isalpha((UCHAR)*S) || *S == '_');
+        } while (isalpha((unsigned char)*S) || *S == '_');
         T.Name[i] = 0;
         UpdateTokToKeyword(&T);
         UpdateTokToFunc(&T);

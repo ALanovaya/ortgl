@@ -7,7 +7,7 @@
 static VARLIST *VarTable = NULL; /* table of variables */ 
 
 /* Start of 'DisplayVarTable' function */
-VOID DisplayVarTable( VOID )
+void DisplayVarTable( void )
 {
   if (VarTable == NULL)
     printf("Empty variable list");
@@ -20,7 +20,7 @@ VOID DisplayVarTable( VOID )
 } /* End of 'DisplayVarTable' function */
 
 /* Start of 'ClearVarTable' function */
-VOID ClearVarTable( VOID )
+void ClearVarTable( void )
 {
   VARLIST *Old;
 
@@ -33,7 +33,7 @@ VOID ClearVarTable( VOID )
 } /* End of 'ClearVarTable' function */
 
 /* Start of 'SetValue' function */
-VOID SetValue( CHAR *Name, DBL Value )
+void SetValue( char *Name, double Value )
 {
   VARLIST **ptr = &VarTable;
   while (*ptr != NULL)
@@ -52,7 +52,7 @@ VOID SetValue( CHAR *Name, DBL Value )
 } /* End of 'SetValue' function */
 
 /* Start of 'GetValue' function */
-DBL GetValue( CHAR *Name )
+double GetValue( char *Name )
 {
   VARLIST **ptr = &VarTable;
   while (*ptr != NULL)

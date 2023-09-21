@@ -134,7 +134,7 @@ TOK DoPrint( STACK *S )
 TOK DoScan( STACK *S )
 {
   TOK T, A;
-  FLT x;
+  float x;
   Pop(S, &A);
 
   if (A.Id != TOK_NAME)
@@ -142,7 +142,7 @@ TOK DoScan( STACK *S )
   
   printf("Input a number: ");
   scanf("%f", &x);
-  T.Num = (DBL)x;
+  T.Num = (double)x;
   SetValue(A.Name, T.Num);
 
   T.Id = TOK_NUM;

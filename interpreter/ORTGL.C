@@ -11,7 +11,7 @@
 jmp_buf ExprJumpBuf; /* Jump bufer variable */
 
 /* Start of 'Error' function */
-VOID Error( CHAR *Str, ... )
+void Error( char *Str, ... )
 {
   va_list ap;
 
@@ -24,10 +24,10 @@ VOID Error( CHAR *Str, ... )
 } /* End of 'Error' function */
 
 /* Start of 'GetStr' function */
-VOID GetStr( CHAR *str, INT MaxLen )
+void GetStr( char *str, int MaxLen )
 {
-  INT i = 0;
-  CHAR Ch;
+  int i = 0;
+  char Ch;
 
   while ((Ch = getchar()) != '\n')
     if (str != NULL && i < MaxLen - 1)
@@ -37,9 +37,9 @@ VOID GetStr( CHAR *str, INT MaxLen )
 } /* End of 'GetStr' function */
 
 /* Start of 'main' function */
-VOID main( VOID ) 
+void main( void ) 
 {
-  CHAR FileName[MAX_NAME];
+  char FileName[MAX_NAME];
   QUEUE Q = {NULL};
   FILE *F;
 
@@ -60,7 +60,7 @@ VOID main( VOID )
   F = fopen(FileName, "r");
   if (F != NULL)
   {
-    static CHAR Buf[1000];
+    static char Buf[1000];
 
     while (fgets(Buf, sizeof(Buf) - 1, F) != NULL)
       Scanner(Buf);

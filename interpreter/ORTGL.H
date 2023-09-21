@@ -3,7 +3,13 @@
 /* Debug memory allocation support */
 #ifndef NDEBUG
 #  define _CRTDBG_MAP_ALLOC
-#  include <crtdbg.h>
+#ifdef _MSC_VER
+#include <crtdbg.h>
+#else
+#define _ASSERT(expr) ((void)0)
+
+#define _ASSERTE(expr) ((void)0)
+#endif
 #  define SetDbgMemHooks() \
      _CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF | \
        _CRTDBG_ALLOC_MEM_DF | _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG))
@@ -11,11 +17,11 @@
 #  define SetDbgMemHooks() ((void)0)
 #endif /* _DEBUG */
 
-#include <commondf.h >
-
-typedef double DBL;
-typedef float FLT;
 #define MAX_NAME 100        /* max lenght of variable and operation */
+
+#include <stdbool.h>
+#include <stdarg.h>
+#include <cstdlib>
 
 typedef enum                /* types of lexemes */
 {
@@ -52,12 +58,12 @@ typedef struct tagTOK TOK;
 typedef struct tagSTACK STACK;
 struct tagOPER
 {
-  CHAR Name[MAX_NAME];      /* name of operation */
+  char Name[MAX_NAME];      /* name of operation */
   TOK (*Do)( STACK *S );    /* pointer to function of this operation */
   OPERTYPE OpType;          /* type of operation */
   ASSOCTYPE Assoc;          /* association of operation */
-  INT Prior;                /* prior of operation */
-  INT Arity;                /* arity for function/operation */
+  int Prior;                /* prior of operation */
+  int Arity;                /* arity for function/operation */
 };
 
 extern OPER OperTable[];    /* table of operations */
@@ -66,22 +72,22 @@ struct tagTOK               /* lexemes */
 {
   TOKID Id;                 /* type of lexem */
   OPER *OperTable;          /* pointer to table of operations */
-  CHAR Name[MAX_NAME];      /* name of lexem */
-  DBL Num;                  /* value of lexem */
+  char Name[MAX_NAME];      /* name of lexem */
+  double Num;                  /* value of lexem */
   KEYWORDS KeyW;            /* key word */
 };
 
 typedef struct
 {
-  CHAR Name[MAX_NAME];      /* keyword name */
+  char Name[MAX_NAME];      /* keyword name */
   KEYWORDS KeyW;            /* keyword constant value */
 } KWRD;
 
 typedef struct tagVARLIST VARLIST;
 struct tagVARLIST           /* variable list */
 {
-  CHAR Name[MAX_NAME];      /* name of variable */
-  DBL Value;                /* value of variable */
+  char Name[MAX_NAME];      /* name of variable */
+  double Value;                /* value of variable */
   VARLIST *Next;            /* pointer to next variable */
 };
       
@@ -124,56 +130,56 @@ extern QUEUE Queue1;
 extern STACK Stack2;        /* Stack for 'parser' */
 extern QUEUE TokList;       /* Queue for 'parser' */
 extern TOK TokCurrent;
-extern INT IsEOTL;
+extern int IsEOTL;
 extern CMD *Proga;
 
 /* Start of 'Put' function */
-VOID Put( QUEUE *Q, TOK NewTOk );
+void Put( QUEUE *Q, TOK NewTOk );
 
 /* Start of 'Get' function */
-BOOL Get( QUEUE *Q, TOK *OldTok );
+bool Get( QUEUE *Q, TOK *OldTok );
 
 /* Start of 'Push' function */
-VOID Push( STACK *S, TOK NewTOk );
+void Push( STACK *S, TOK NewTOk );
 
 /* Start of 'Pop' function */
-BOOL Pop( STACK *S, TOK *OldTok );
+bool Pop( STACK *S, TOK *OldTok );
 
 /* Start of 'DisplayQueue' function */
-VOID DisplayQueue( QUEUE *Q );
+void DisplayQueue( QUEUE *Q );
 
 /* Start of 'DisplayStack' function */
-VOID DisplayStack( STACK *S );
+void DisplayStack( STACK *S );
 
 /* Start of 'ClearStack' function */
-VOID ClearStack( STACK *S );
+void ClearStack( STACK *S );
 
 /* Start of 'ClearQueue' function */
-VOID ClearQueue( QUEUE *Q );
+void ClearQueue( QUEUE *Q );
 
 /* Start of 'Scanner' function */
-VOID Scanner( CHAR *S );
+void Scanner( char *S );
 
 /* Start of 'Eval' function */
-DBL Eval( LIST *Expr );
+double Eval( LIST *Expr );
 
 /* Start of 'Error' function */
-VOID Error( CHAR *Str, ... );
+void Error( char *Str, ... );
 
 /* Start of 'ParserExpr' function */
-VOID ParserExpr( LIST **Expr );
+void ParserExpr( LIST **Expr );
 
 /* Start of 'SetValue' function */
-VOID SetValue( CHAR *Name, DBL Value );
+void SetValue( char *Name, double Value );
 
 /* Start of 'GetValue' function */
-DBL GetValue( CHAR *Name );
+double GetValue( char *Name );
 
 /* Start of 'DisplayVarTable' function */
-VOID DisplayVarTable( VOID );
+void DisplayVarTable( void );
 
 /* Start of 'ClearVarTable' function */
-VOID ClearVarTable( VOID );
+void ClearVarTable( void );
 
 /* Start of 'DoEqual' function */
 TOK DoEq( STACK *S );
@@ -233,7 +239,7 @@ TOK DoStrictLessCom( STACK *S );
 TOK DoLessCom( STACK *S );
 
 /* Start of 'ParseProgram' function */
-VOID ParseProgram( VOID );
+void ParseProgram( void );
 
 /* Start of 'DoCmd' function */
-VOID DoCmd( CMD *C );
+void DoCmd( CMD *C );

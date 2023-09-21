@@ -8,11 +8,11 @@
 STACK StackEval;
 
 /* Start of 'Eval' function */
-DBL Eval( LIST *Expr )
+double Eval( LIST *Expr )
 {
   TOK T, A = {0}, Res;
   STACK S = {NULL};
-  INT tmp;
+  int tmp;
 
   while (Expr != NULL)
   {
@@ -67,7 +67,7 @@ DBL Eval( LIST *Expr )
 } /* End of 'Eval' function */
 
 /* Start of 'DoCmd' function */
-VOID DoCmd( CMD *C )
+void DoCmd( CMD *C )
 {
   while (C != NULL)
   {

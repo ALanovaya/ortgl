@@ -5,7 +5,7 @@
 #include "ortgl.h"
 
 /* Start of 'PrintTok' function */
-VOID PrintTok( TOK *T )
+void PrintTok( TOK *T )
 {
   if (T->Id == TOK_OP)
     printf("<op:%s>", T->OperTable->Name);
@@ -24,7 +24,7 @@ VOID PrintTok( TOK *T )
 } /* End of 'PrintTok' function */
 
 /* Start of 'Put' function */
-VOID Put( QUEUE *Q, TOK NewTok )
+void Put( QUEUE *Q, TOK NewTok )
 {
   LIST *NewElement = malloc(sizeof(LIST));
 
@@ -44,23 +44,23 @@ VOID Put( QUEUE *Q, TOK NewTok )
 } /* End of 'Put' function */
 
 /* Start of 'Get' function */
-BOOL Get( QUEUE *Q, TOK *OldTok )
+bool Get( QUEUE *Q, TOK *OldTok )
 {
   LIST *OldElement;
 
   if (Q->Head == NULL)
-    return FALSE;
+    return false;
 
   if (OldTok != NULL)
     *OldTok = Q->Head->T;
   OldElement = Q->Head;
   Q->Head = Q->Head->Next;
   free(OldElement);
-  return TRUE;
+  return true;
 } /* End of 'Get' function */
 
 /* Start of 'Push' function */
-VOID Push( STACK *S, TOK NewTok )
+void Push( STACK *S, TOK NewTok )
 {
   LIST *NewElement = malloc(sizeof(LIST));
 
@@ -73,23 +73,23 @@ VOID Push( STACK *S, TOK NewTok )
 } /* End of 'Push' function */
 
 /* Start of 'Pop' function */
-BOOL Pop( STACK *S, TOK *OldTok )
+bool Pop( STACK *S, TOK *OldTok )
 {
   LIST *OldElement;
 
   if (S->Top == NULL)
-    return FALSE;
+    return false;
   
   if (OldTok != NULL)
     *OldTok = S->Top->T;
   OldElement = S->Top;
   S->Top = S->Top->Next;
   free(OldElement);
-  return TRUE;
+  return true;
 } /* End of 'Pop' function */
 
 /* Start of 'DisplayList' function */
-static VOID DisplayList( LIST *L )
+static void DisplayList( LIST *L )
 {
   if (L == NULL)
     printf("Empty list");
@@ -102,18 +102,18 @@ static VOID DisplayList( LIST *L )
 } /* End of 'DisplayList' function */
 
 /* Start of 'DisplayQueue' function */
-VOID DisplayQueue( QUEUE *Q )
+void DisplayQueue( QUEUE *Q )
 {
   DisplayList(Q->Head);
 }
 
-VOID DisplayStack( STACK *S )
+void DisplayStack( STACK *S )
 {
   DisplayList(S->Top);
 } /* End of 'DisplayQueue' function */
 
 /* Start of 'ClearList' function */
-static VOID ClearList( LIST **L )
+static void ClearList( LIST **L )
 {
   LIST *Old;
 
@@ -126,13 +126,13 @@ static VOID ClearList( LIST **L )
 } /* End of 'ClearList' function */
 
 /* Start of 'ClearQueue' function */
-VOID ClearQueue( QUEUE *Q )
+void ClearQueue( QUEUE *Q )
 {
   ClearList(&Q->Head);
 } /* End of 'ClearQueue' function */
 
 /* Start of 'ClearStack' function */
-VOID ClearStack( STACK *S )
+void ClearStack( STACK *S )
 {
   ClearList(&S->Top);
 } /* End of 'ClearStack' function */
