@@ -7,10 +7,22 @@ This is a simple interpreter for the C programming language written in C. It all
 
 To install the C language interpreter, follow these steps:
 
-1. Clone the repository
-2. Navigate to the project directory
-3. Compile the source code
-4. Run the interpreter
+1. Clone the repository: 
+```bash
+git clone https://github.com/ALanovaya/ortgl.git
+```
+2. Navigate to the project directory:
+```bash
+cd ortgl/interpreter
+```
+3. Compile the source code:
+```bash
+gcc *.c -o ortgl
+```
+4. Run the interpreter:
+```bash
+ortgl main.ortgl
+```
 
 ## Usage
 
